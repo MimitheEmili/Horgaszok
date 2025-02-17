@@ -19,13 +19,19 @@ namespace Horgaszok.Models
 
         public virtual DbSet<Halak> Halak { get; set; }
 
+        public virtual DbSet<Horgaszok.Class.Horgaszok> Horgaszok { get; set; }
+
+        public virtual DbSet<Tavak> Tavak { get; set; }
+
+
+
         // Add other DbSets as necessary
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySQL("SERVER=localhost;PORT=3306;DATABASE=horgaszokdb;USER=root;PASSWORD=;SSL MODE=none;");
+                optionsBuilder.UseMySQL("SERVER=localhost;PORT=3306;DATABASE=halak;USER=root;PASSWORD=;SSL MODE=none;");
             }
         }
 

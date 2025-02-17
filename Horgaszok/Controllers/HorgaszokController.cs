@@ -1,4 +1,4 @@
-﻿using Horgaszok.Class;
+﻿using Horgaszok.Class;  // Horgaszok osztály betöltése
 using Horgaszok.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,16 +12,20 @@ namespace Horgaszok.Controllers
     [ApiController]
     public class HorgaszokController : ControllerBase
     {
-        // Get a list of all horgász
+        private readonly HorgaszokContext _context;
+
+        public HorgaszokController(HorgaszokContext context)
+        {
+            _context = context;
+        }
+
+        // Get all horgászok
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                using (var cx = new HorgaszokContext())
-                {
-                    return Ok(cx.Horgaszok.ToList());
-                }
+                return Ok(_context.Horgaszok.ToList());
             }
             catch (Exception ex)
             {
@@ -29,19 +33,16 @@ namespace Horgaszok.Controllers
             }
         }
 
-        // Get a specific horgász by ID
+        // Get horgász by ID
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try
             {
-                using (var cx = new HorgaszokContext())
-                {
-                    var horgasz = cx.Horgaszok.FirstOrDefault(h => h.Horgaszok_Id == id);
-                    if (horgasz == null)
-                        return NotFound("Horgász nem található.");
-                    return Ok(horgasz);
-                }
+                var horgasz = _context.Horgaszok.FirstOrDefault(h => h.Horgaszok_Id == id);
+                if (horgasz == null)
+                    return NotFound("Horgász nem található.");
+                return Ok(horgasz);
             }
             catch (Exception ex)
             {
@@ -49,37 +50,31 @@ namespace Horgaszok.Controllers
             }
         }
 
-        // Add a new horgász
+        // Add new horgász
         [HttpPost]
-        public IActionResult Post(Horgaszok horgasz)
+        public IActionResult Post(Horgaszok.Class.Horgaszok horgasz)
         {
             try
             {
-                using (var cx = new HorgaszokContext())
-                {
-                    cx.Horgaszok.Add(horgasz);
-                    cx.SaveChanges();
-                    return StatusCode(StatusCodes.Status202Accepted, "Horgász hozzáadva.");
-                }
+                _context.Horgaszok.Add(horgasz);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, "Horgász hozzáadva.");
             }
             catch (Exception ex)
             {
-                return StatusCode(432, ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
-        // Update an existing horgász
+        // Update existing horgász
         [HttpPut]
-        public IActionResult Put(Horgaszok horgasz)
+        public IActionResult Put(Horgaszok.Class.Horgaszok horgasz)
         {
             try
             {
-                using (var cx = new HorgaszokContext())
-                {
-                    cx.Horgaszok.Update(horgasz);
-                    cx.SaveChanges();
-                    return Ok("Horgász módosítva.");
-                }
+                _context.Horgaszok.Update(horgasz);
+                _context.SaveChanges();
+                return Ok("Horgász módosítva.");
             }
             catch (Exception ex)
             {
@@ -87,19 +82,19 @@ namespace Horgaszok.Controllers
             }
         }
 
-        // Delete a horgász by ID
+        // Delete horgász by ID
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
-                using (var cx = new HorgaszokContext())
-                {
-                    Horgaszok horgasz = new Horgaszok { Horgaszok_Id = id };
-                    cx.Horgaszok.Remove(horgasz);
-                    cx.SaveChanges();
-                    return Ok("Horgász törölve.");
-                }
+                var horgasz = _context.Horgaszok.Find(id);
+                if (horgasz == null)
+                    return NotFound("Horgász nem található.");
+
+                _context.Horgaszok.Remove(horgasz);
+                _context.SaveChanges();
+                return Ok("Horgász törölve.");
             }
             catch (Exception ex)
             {
