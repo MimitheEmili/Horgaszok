@@ -1,14 +1,19 @@
-﻿namespace Horgaszok.Class
-{
-    public class Fogasok
-    {
-        public int Fogasok_Id { get; set; }
-        public int Hal_Id { get; set; }
-        public int Horgaszok_Id { get; set; }
-        public DateTime Datum { get; set; }
+﻿using System;
+using System.Collections.Generic;
 
-        // Navigációs tulajdonságok
-        public Halak Hal { get; set; }  // A Halak entitás
-        public Horgaszok Horgaszok { get; set; }  // A Horgaszok entitás
-    }
+namespace Horgaszok.Models;
+
+public partial class Fogasok
+{
+    public int FogasokId { get; set; }
+
+    public int? HalId { get; set; }
+
+    public int? HorgaszokId { get; set; }
+
+    public DateTime Datum { get; set; }
+
+    public virtual Halak? Hal { get; set; }
+
+    public virtual Horgaszok? Horgaszok { get; set; }
 }

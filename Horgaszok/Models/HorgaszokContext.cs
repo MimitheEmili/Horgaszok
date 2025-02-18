@@ -32,6 +32,7 @@ namespace Horgaszok.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseMySQL("SERVER=localhost;PORT=3306;DATABASE=halak;USER=root;PASSWORD=;SSL MODE=none;");
+
             }
         }
 

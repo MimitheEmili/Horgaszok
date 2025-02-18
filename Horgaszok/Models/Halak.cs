@@ -1,12 +1,25 @@
-﻿namespace Horgaszok.Class
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace Horgaszok.Models;
+
+public partial class Halak
 {
-    public class Halak
-    {
-        public int Halak_Id { get; set; }  
-        public string Hal_nev { get; set; }  
-        public string Hal_Faj { get; set; }  
-        public decimal Meret_Cm { get; set; }  
-        public int? To_Id { get; set; }  
-        public byte[] Kep { get; set; }
-    }
+    public int HalakId { get; set; }
+
+    public string HalNev { get; set; } = null!;
+
+    public string HalFaj { get; set; } = null!;
+
+    public decimal? MeretCm { get; set; }
+
+    public int? ToId { get; set; }
+
+    public byte[]? Kep { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<Fogasok> Fogasoks { get; set; } = new List<Fogasok>();
+
+    public virtual Tavak? To { get; set; }
 }
