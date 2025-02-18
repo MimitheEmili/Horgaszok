@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Horgaszok.Models;
+namespace Horgaszadatok.Models;
 
 public partial class Horgaszok
 {

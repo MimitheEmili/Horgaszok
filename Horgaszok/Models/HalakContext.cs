@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Horgaszok.Models;
+namespace Horgaszadatok.Models;
 
 public partial class HalakContext : DbContext
 {
@@ -46,22 +46,18 @@ public partial class HalakContext : DbContext
                 .HasColumnType("date")
                 .HasColumnName("datum");
             entity.Property(e => e.HalId)
-                .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
                 .HasColumnName("hal_id");
             entity.Property(e => e.HorgaszokId)
-                .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
                 .HasColumnName("horgaszok_id");
 
             entity.HasOne(d => d.Hal).WithMany(p => p.Fogasoks)
                 .HasForeignKey(d => d.HalId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fogasok_ibfk_1");
 
             entity.HasOne(d => d.Horgaszok).WithMany(p => p.Fogasoks)
                 .HasForeignKey(d => d.HorgaszokId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fogasok_ibfk_2");
         });
 
@@ -91,13 +87,11 @@ public partial class HalakContext : DbContext
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnName("meret_cm");
             entity.Property(e => e.ToId)
-                .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
                 .HasColumnName("to_id");
 
             entity.HasOne(d => d.To).WithMany(p => p.Halaks)
                 .HasForeignKey(d => d.ToId)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("halak_ibfk_1");
         });
 

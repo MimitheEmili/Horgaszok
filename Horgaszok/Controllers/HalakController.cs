@@ -1,19 +1,19 @@
-﻿using Horgaszok.Class;
-using Horgaszok.Models;
+﻿
+using Horgaszadatok.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Horgaszok.Controllers
+namespace Horgaszadatok.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class HalakController : ControllerBase
     {
-        private readonly HorgaszokContext _context;
+        private readonly HalakContext _context;
 
         // A HorgaszokContext DI által történő injektálása
-        public HalakController(HorgaszokContext context)
+        public HalakController(HalakContext context)
         {
             _context = context;
         }
@@ -24,7 +24,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                return Ok(_context.Halak.ToList());
+                return Ok(_context.Halaks.ToList());
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                var hal = _context.Halak.FirstOrDefault(h => h.Halak_Id == id);
+                var hal = _context.Halaks.FirstOrDefault(h => h.HalakId == id);
                 if (hal == null)
                     return NotFound("Hal nem található.");
                 return Ok(hal);
@@ -55,7 +55,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                _context.Halak.Add(hal);
+                _context.Halaks.Add(hal);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status202Accepted, "Hal hozzáadva.");
             }
@@ -71,7 +71,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                _context.Halak.Update(hal);
+                _context.Halaks.Update(hal);
                 _context.SaveChanges();
                 return Ok("Hal módosítva.");
             }
@@ -87,8 +87,8 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                Halak hal = new Halak { Halak_Id = id };
-                _context.Halak.Remove(hal);
+                Halak hal = new Halak { HalakId = id };
+                _context.Halaks.Remove(hal);
                 _context.SaveChanges();
                 return Ok("Hal törölve.");
             }

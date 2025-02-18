@@ -1,106 +1,106 @@
-﻿using Horgaszok.Class;
-using Horgaszok.Models;
+﻿
+using Horgaszadatok.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Horgaszok.Controllers
+namespace Horgaszadatok.Controllers
 {
     [Route("[controller]")]
         [ApiController]
     public class FogasokController : Controller
     {
-        
-            private readonly HorgaszokContext _context;
 
-            // Konstruktor, ahol a HorgaszokContext injektálva van
-            public FogasokController(HorgaszokContext context)
+        private readonly HalakContext _context;
+
+        // Konstruktor, ahol a HorgaszokContext injektálva van
+        public FogasokController(HalakContext context)
+        {
+            _context = context;
+        }
+
+        // Get a list of all catches
+        [HttpGet]
+        public IActionResult Get()
+        {
+            try
             {
-                _context = context;
+                var fogasok = _context.Fogasoks.Include(f => f.Hal).Include(f => f.Horgaszok).ToList();
+                return Ok(fogasok);
             }
-
-            // Get a list of all catches
-            [HttpGet]
-            public IActionResult Get()
+            catch (Exception ex)
             {
-                try
-                {
-                    var fogasok = _context.Fogasok.Include(f => f.Hal).Include(f => f.Horgaszok).ToList();
-                    return Ok(fogasok);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-
-            // Get a specific catch by ID
-            [HttpGet("{id}")]
-            public IActionResult Get(int id)
-            {
-                try
-                {
-                    var fogas = _context.Fogasok.Include(f => f.Hal).Include(f => f.Horgaszok).FirstOrDefault(f => f.Fogasok_Id == id);
-                    if (fogas == null)
-                        return NotFound("Fogás nem található.");
-                    return Ok(fogas);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-
-            // Add a new catch
-            [HttpPost]
-            public IActionResult Post(Fogasok fogas)
-            {
-                try
-                {
-                    _context.Fogasok.Add(fogas);
-                    _context.SaveChanges();
-                    return StatusCode(StatusCodes.Status202Accepted, "Fogás hozzáadva.");
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(432, ex.Message);
-                }
-            }
-
-            // Update an existing catch
-            [HttpPut]
-            public IActionResult Put(Fogasok fogas)
-            {
-                try
-                {
-                    _context.Fogasok.Update(fogas);
-                    _context.SaveChanges();
-                    return Ok("Fogás módosítva.");
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
-
-            // Delete a catch by ID
-            [HttpDelete("{id}")]
-            public IActionResult Delete(int id)
-            {
-                try
-                {
-                    var fogas = new Fogasok { Fogasok_Id = id };
-                    _context.Fogasok.Remove(fogas);
-                    _context.SaveChanges();
-                    return Ok("Fogás törölve.");
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return BadRequest(ex.Message);
             }
         }
-        
+
+        // Get a specific catch by ID
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                var fogas = _context.Fogasoks.Include(f => f.Hal).Include(f => f.Horgaszok).FirstOrDefault(f => f.FogasokId == id);
+                if (fogas == null)
+                    return NotFound("Fogás nem található.");
+                return Ok(fogas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // Add a new catch
+        [HttpPost]
+        public IActionResult Post(Fogasok fogas)
+        {
+            try
+            {
+                _context.Fogasoks.Add(fogas);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status202Accepted, "Fogás hozzáadva.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(432, ex.Message);
+            }
+        }
+
+        // Update an existing catch
+        [HttpPut]
+        public IActionResult Put(Fogasok fogas)
+        {
+            try
+            {
+                _context.Fogasoks.Update(fogas);
+                _context.SaveChanges();
+                return Ok("Fogás módosítva.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // Delete a catch by ID
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var fogas = new Fogasok { FogasokId = id };
+                _context.Fogasoks.Remove(fogas);
+                _context.SaveChanges();
+                return Ok("Fogás törölve.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    }
+
 }

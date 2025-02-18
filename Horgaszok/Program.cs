@@ -1,7 +1,7 @@
-using Horgaszok.Models;
+using Horgaszadatok.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Horgaszok
+namespace Horgaszadatok
 {
     public class Program
     {
@@ -15,8 +15,8 @@ namespace Horgaszok
             builder.Services.AddSwaggerGen();
 
             // **Adatbázis kapcsolat beállítása**
-            builder.Services.AddDbContext<HorgaszokContext>(options =>
-                options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+            //builder.Services.AddDbContext<HalakContext>(options =>
+            //    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 

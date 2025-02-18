@@ -1,4 +1,4 @@
-﻿namespace Horgaszok.DTO
+﻿namespace Horgaszadatok.DTO
 {
     public class Fogasok
     {

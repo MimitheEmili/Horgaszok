@@ -1,20 +1,20 @@
-﻿using Horgaszok.Class;
-using Horgaszok.Models;
+﻿
+using Horgaszadatok.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Horgaszok.Controllers
+namespace Horgaszadatok.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class TavakController : ControllerBase
     {
-        private readonly HorgaszokContext _context;
+        private readonly HalakContext _context;
 
-        public TavakController(HorgaszokContext context)
+        public TavakController(HalakContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                return Ok(_context.Tavak.ToList());
+                return Ok(_context.Tavaks.ToList());
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                var to = _context.Tavak.FirstOrDefault(t => t.Tavak_Id == id);
+                var to = _context.Tavaks.FirstOrDefault(t => t.TavakId == id);
                 if (to == null)
                     return NotFound("A megadott tó nem található.");
                 return Ok(to);
@@ -56,7 +56,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                _context.Tavak.Add(to);
+                _context.Tavaks.Add(to);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, "Tó hozzáadva.");
             }
@@ -72,7 +72,7 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                _context.Tavak.Update(to);
+                _context.Tavaks.Update(to);
                 _context.SaveChanges();
                 return Ok("Tó módosítva.");
             }
@@ -88,11 +88,11 @@ namespace Horgaszok.Controllers
         {
             try
             {
-                var to = _context.Tavak.Find(id);
+                var to = _context.Tavaks.Find(id);
                 if (to == null)
                     return NotFound("A megadott tó nem található.");
 
-                _context.Tavak.Remove(to);
+                _context.Tavaks.Remove(to);
                 _context.SaveChanges();
                 return Ok("Tó törölve.");
             }
