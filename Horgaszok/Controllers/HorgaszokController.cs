@@ -1,5 +1,4 @@
-﻿
-using Horgaszadatok.Models;
+﻿using Horgaszadatok.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +38,7 @@ namespace Horgaszadatok.Controllers
         {
             try
             {
-                var horgasz = _context.Horgaszoks.FirstOrDefault(h => h.HorgaszokId == id);
+                var horgasz = _context.Horgaszoks.FirstOrDefault(h => h.horgaszok_id == id);
                 if (horgasz == null)
                     return NotFound("Horgász nem található.");
                 return Ok(horgasz);
@@ -52,7 +51,7 @@ namespace Horgaszadatok.Controllers
 
         // Add new horgász
         [HttpPost]
-        public IActionResult Post(Horgaszok horgasz)
+        public IActionResult Post(Horgaszok horgasz)  // <-- Helyes típus
         {
             try
             {
@@ -68,7 +67,7 @@ namespace Horgaszadatok.Controllers
 
         // Update existing horgász
         [HttpPut]
-        public IActionResult Put(Horgaszok horgasz)
+        public IActionResult Put(Horgaszok horgasz)  // <-- Helyes típus
         {
             try
             {

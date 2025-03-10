@@ -6,11 +6,11 @@ namespace Horgaszadatok.Models;
 
 public partial class Tavak
 {
-    public int TavakId { get; set; }
+    public int tavak_id { get; set; }
 
-    public string ToNev { get; set; } = null!;
+    public string to_nev { get; set; } = null!;
 
-    public string Helyszin { get; set; } = null!;
+    public string helyszin { get; set; } = null!;
 
     [JsonIgnore]
     public virtual ICollection<Halak> Halaks { get; set; } = new List<Halak>();

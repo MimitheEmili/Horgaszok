@@ -31,101 +31,101 @@ public partial class HalakContext : DbContext
     {
         modelBuilder.Entity<Fogasok>(entity =>
         {
-            entity.HasKey(e => e.FogasokId).HasName("PRIMARY");
+            entity.HasKey(e => e.fogasok_id).HasName("PRIMARY");
 
             entity.ToTable("fogasok");
 
-            entity.HasIndex(e => e.HalId, "hal_id");
+            entity.HasIndex(e => e.hal_id, "hal_id");
 
-            entity.HasIndex(e => e.HorgaszokId, "horgaszok_id");
+            entity.HasIndex(e => e.horgaszok_id, "horgaszok_id");
 
-            entity.Property(e => e.FogasokId)
+            entity.Property(e => e.fogasok_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("fogasok_id");
-            entity.Property(e => e.Datum)
+            entity.Property(e => e.datum)
                 .HasColumnType("date")
                 .HasColumnName("datum");
-            entity.Property(e => e.HalId)
+            entity.Property(e => e.hal_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("hal_id");
-            entity.Property(e => e.HorgaszokId)
+            entity.Property(e => e.horgaszok_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("horgaszok_id");
 
             entity.HasOne(d => d.Hal).WithMany(p => p.Fogasoks)
-                .HasForeignKey(d => d.HalId)
+                .HasForeignKey(d => d.hal_id)
                 .HasConstraintName("fogasok_ibfk_1");
 
             entity.HasOne(d => d.Horgaszok).WithMany(p => p.Fogasoks)
-                .HasForeignKey(d => d.HorgaszokId)
+                .HasForeignKey(d => d.horgaszok_id)
                 .HasConstraintName("fogasok_ibfk_2");
         });
 
         modelBuilder.Entity<Halak>(entity =>
         {
-            entity.HasKey(e => e.HalakId).HasName("PRIMARY");
+            entity.HasKey(e => e.halak_id).HasName("PRIMARY");
 
             entity.ToTable("halak");
 
-            entity.HasIndex(e => e.ToId, "to_id");
+            entity.HasIndex(e => e.to_id, "to_id");
 
-            entity.Property(e => e.HalakId)
+            entity.Property(e => e.halak_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("halak_id");
-            entity.Property(e => e.HalFaj)
+            entity.Property(e => e.hal_faj)
                 .HasMaxLength(100)
                 .HasColumnName("hal_faj");
-            entity.Property(e => e.HalNev)
+            entity.Property(e => e.hal_nev)
                 .HasMaxLength(100)
                 .HasColumnName("hal_nev");
-            entity.Property(e => e.Kep)
+            entity.Property(e => e.kep)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("blob")
                 .HasColumnName("kep");
-            entity.Property(e => e.MeretCm)
+            entity.Property(e => e.meret_cm)
                 .HasPrecision(5)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnName("meret_cm");
-            entity.Property(e => e.ToId)
+            entity.Property(e => e.to_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("to_id");
 
             entity.HasOne(d => d.To).WithMany(p => p.Halaks)
-                .HasForeignKey(d => d.ToId)
+                .HasForeignKey(d => d.to_id)
                 .HasConstraintName("halak_ibfk_1");
         });
 
         modelBuilder.Entity<Horgaszok>(entity =>
         {
-            entity.HasKey(e => e.HorgaszokId).HasName("PRIMARY");
+            entity.HasKey(e => e.horgaszok_id).HasName("PRIMARY");
 
             entity.ToTable("horgaszok");
 
-            entity.Property(e => e.HorgaszokId)
+            entity.Property(e => e.horgaszok_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("horgaszok_id");
-            entity.Property(e => e.Eletkor)
+            entity.Property(e => e.eletkor)
                 .HasDefaultValueSql("'NULL'")
                 .HasColumnType("int(11)")
                 .HasColumnName("eletkor");
-            entity.Property(e => e.HorgaszokNev)
+            entity.Property(e => e.horgaszok_nev)
                 .HasMaxLength(100)
                 .HasColumnName("horgaszok_nev");
         });
 
         modelBuilder.Entity<Tavak>(entity =>
         {
-            entity.HasKey(e => e.TavakId).HasName("PRIMARY");
+            entity.HasKey(e => e.tavak_id).HasName("PRIMARY");
 
             entity.ToTable("tavak");
 
-            entity.Property(e => e.TavakId)
+            entity.Property(e => e.tavak_id)
                 .HasColumnType("int(11)")
                 .HasColumnName("tavak_id");
-            entity.Property(e => e.Helyszin)
+            entity.Property(e => e.helyszin)
                 .HasMaxLength(100)
                 .HasColumnName("helyszin");
-            entity.Property(e => e.ToNev)
+            entity.Property(e => e.to_nev)
                 .HasMaxLength(100)
                 .HasColumnName("to_nev");
         });

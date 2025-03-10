@@ -39,7 +39,7 @@ namespace Horgaszadatok.Controllers
         {
             try
             {
-                var to = _context.Tavaks.FirstOrDefault(t => t.TavakId == id);
+                var to = _context.Tavaks.FirstOrDefault(t => t.tavak_id == id);
                 if (to == null)
                     return NotFound("A megadott tó nem található.");
                 return Ok(to);

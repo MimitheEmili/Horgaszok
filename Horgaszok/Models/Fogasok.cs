@@ -5,13 +5,13 @@ namespace Horgaszadatok.Models;
 
 public partial class Fogasok
 {
-    public int FogasokId { get; set; }
+    public int fogasok_id { get; set; }
 
-    public int HalId { get; set; }
+    public int hal_id { get; set; }
 
-    public int HorgaszokId { get; set; }
+    public int horgaszok_id { get; set; }
 
-    public DateTime Datum { get; set; }
+    public DateTime datum { get; set; }
 
     public virtual Halak? Hal { get; set; } = null!;
 

@@ -38,7 +38,7 @@ namespace Horgaszadatok.Controllers
         {
             try
             {
-                var hal = _context.Halaks.FirstOrDefault(h => h.HalakId == id);
+                var hal = _context.Halaks.FirstOrDefault(h => h.halak_id == id);
                 if (hal == null)
                     return NotFound("Hal nem található.");
                 return Ok(hal);
@@ -87,7 +87,7 @@ namespace Horgaszadatok.Controllers
         {
             try
             {
-                Halak hal = new Halak { HalakId = id };
+                Halak hal = new Halak { halak_id = id };
                 _context.Halaks.Remove(hal);
                 _context.SaveChanges();
                 return Ok("Hal törölve.");

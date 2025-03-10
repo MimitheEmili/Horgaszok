@@ -42,7 +42,7 @@ namespace Horgaszadatok.Controllers
         {
             try
             {
-                var fogas = _context.Fogasoks.Include(f => f.Hal).Include(f => f.Horgaszok).FirstOrDefault(f => f.FogasokId == id);
+                var fogas = _context.Fogasoks.Include(f => f.Hal).Include(f => f.Horgaszok).FirstOrDefault(f => f.fogasok_id == id);
                 if (fogas == null)
                     return NotFound("Fogás nem található.");
                 return Ok(fogas);
@@ -91,7 +91,7 @@ namespace Horgaszadatok.Controllers
         {
             try
             {
-                var fogas = new Fogasok { FogasokId = id };
+                var fogas = new Fogasok { fogasok_id = id };
                 _context.Fogasoks.Remove(fogas);
                 _context.SaveChanges();
                 return Ok("Fogás törölve.");

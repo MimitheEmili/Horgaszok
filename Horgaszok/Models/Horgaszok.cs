@@ -6,11 +6,11 @@ namespace Horgaszadatok.Models;
 
 public partial class Horgaszok
 {
-    public int HorgaszokId { get; set; }
+    public int horgaszok_id { get; set; }
 
-    public string HorgaszokNev { get; set; } = null!;
+    public string horgaszok_nev { get; set; } = null!;
 
-    public int? Eletkor { get; set; }
+    public int? eletkor { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<Fogasok> Fogasoks { get; set; } = new List<Fogasok>();
